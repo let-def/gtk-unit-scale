@@ -1,0 +1,56 @@
+commit 8a6d221655dc3409e07033619deaecf0d4f7ab1b
+Author: Frédéric Bour <frederic.bour@lakaban.net>
+Date:   Sat Nov 1 19:05:57 2025 +0900
+
+    Parse and apply GTK_UNIT_SCALE
+
+diff --git a/gtk/gtkcssdimensionvalue.c b/gtk/gtkcssdimensionvalue.c
+index 4bc0c32a6a..be74dcc100 100644
+--- a/gtk/gtkcssdimensionvalue.c
++++ b/gtk/gtkcssdimensionvalue.c
+@@ -19,6 +19,35 @@
+ 
+ #include "gtkcssdimensionvalueprivate.h"
+ 
++static double unit_scale(void)
++{
++  static double scale = 1.0;
++  static int unit_initialized = 0;
++
++  if (!unit_initialized)
++  {
++    unit_initialized = 1;
++
++    const char *str = getenv("GTK_UNIT_SCALE");
++    if (str)
++    {
++      char *endptr;
++      double value;
++
++      // Parse the string
++      value = strtod(str, &endptr);
++
++      // Check for errors
++      if (endptr != str)
++        scale *= value;
++      else
++        fprintf(stderr, "GTK_UNIT_SCALE: not a floating point value.\n");
++    }
++  }
++
++  return scale;
++}
++
+ GtkCssValue *
+ gtk_css_dimension_value_parse (GtkCssParser           *parser,
+                                GtkCssNumberParseFlags  flags)
+@@ -127,6 +156,9 @@ gtk_css_dimension_value_parse (GtkCssParser           *parser,
+       return NULL;
+     }
+ 
++  if (unit == GTK_CSS_PX)
++    number *= unit_scale();
++
+   result = gtk_css_dimension_value_new (number, unit);
+   gtk_css_parser_consume_token (parser);
+ 
