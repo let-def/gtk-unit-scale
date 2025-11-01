@@ -3,8 +3,10 @@
 This fork introduces a new environment variable `GTK_UNIT_SCALE` that allows you to scale all dimension units in GTK applications. This complements GTK's existing text scaling functionality by adjusting the physical dimensions of widgets while leaving text sizes unaffected (assuming proper CSS styling).
 
 Vanilla GTK:
-- ![Vanilla GTK](gtk-vanilla.png)
-- ![GTK with `GTK_UNIT_SCALE=0.8`](gtk-unit-scale.png)
+![Vanilla GTK](gtk-vanilla.png)
+
+`GTK_UNIT_SCALE=0.8`:
+![GTK with `GTK_UNIT_SCALE=0.8`](gtk-unit-scale.png)
 
 ### Usage
 
