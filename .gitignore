@@ -1,4 +1,3 @@
 archlinux-gtk3/
 archlinux-gtk4/
-fedora-gtk3/
-fedora-gtk4/
+gtk*.src.rpm
