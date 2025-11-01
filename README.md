@@ -49,8 +49,8 @@ The [packaging](https://github.com/let-def/gtk/tree/packaging) branch provides a
 The simplest way to build the packages:
 
 ``` sh
-git clone --single-branch --branch=packaging https://github.com/let-def/gtk gtk-unit-scale-packaging
-cd gtk-unit-scale-packaging
+git clone --single-branch --branch=packaging https://github.com/let-def/gtk-unit-scale
+cd gtk-unit-scale
 
 # For Archlinux
 make archlinux-gtk3 archlinux-gtk4
