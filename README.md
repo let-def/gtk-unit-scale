@@ -71,7 +71,7 @@ make fedora-gtk4
 As for the actual changes, see:
 - [Patch - GTK4](https://github.com/let-def/gtk/blob/packaging/gtk4_unit_scale.patch)
 - [Patch - GTK3](https://github.com/let-def/gtk/blob/packaging/gtk3_unit_scale.patch)
-- [Fedora - GTK4](https://github.com/let-def/gtk/blob/packaging/gtk4.spec)
-- [Fedora - GTK3](https://github.com/let-def/gtk/blob/packaging/gtk3.spec)
-- [Arch - GTK4](https://github.com/let-def/gtk/blob/packaging/PKGBUILD-gtk4)
-- [Arch - GTK3](https://github.com/let-def/gtk/blob/packaging/PKGBUILD-gtk3)
+
+The package spec files for Fedora and Arch are patched automatically:
+- [Fedora](https://github.com/let-def/gtk/blob/packaging/spec-patch.sh)
+- [Arch](https://github.com/let-def/gtk/blob/packaging/pkgbuild-patch.awk)
