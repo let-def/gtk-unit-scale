@@ -27,7 +27,10 @@ BEGIN {
     git_apply_added = 0
 }
 
-# Detect end of prepare
+# Detect start of prepare function
+/^prepare\(\).*$/ { in_prepare = 1; }
+
+# Detect and patch end of prepare
 /^}/ {
   if (in_prepare && !git_apply_added) {
     print "  git apply -3 ../" patch_name
@@ -39,7 +42,7 @@ BEGIN {
 # Print current line
 { print }
 
-# Detect arrays and sections
+# Append line to source and b2sums arrays 
 /^source=\(/ { 
   if (!source_added) {
     print "  \"" patch_name "\""; 
@@ -54,8 +57,7 @@ BEGIN {
   }
 }
 
-/^prepare\(\).*$/ { in_prepare = 1; }
-# After processing all input, if we didn't find closing brace, force-add at end
+# Check that the patch applied successfully
 END {
     if (!source_added) {
         print "Failed to patch source array" 
