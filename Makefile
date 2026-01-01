@@ -1,18 +1,22 @@
 archlinux-gtk3:
 	# Download or update package sources
 	if [ -d $@ ]; then cd $@ && git pull; else git clone https://gitlab.archlinux.org/archlinux/packaging/packages/gtk3.git --depth=1 --single-branch $@; fi
-	# Copying patched files
-	cp -l PKGBUILD-gtk3 gtk3_unit_scale.patch $@/
+	# Copy patch
+	cp -l gtk3_unit_scale.patch $@/
+	# Update PKGBUILD
+	awk -f pkgbuild-patch.awk archlinux-gtk3/PKGBUILD gtk3_unit_scale.patch > archlinux-gtk3/PKGBUILD-unit-scale
 	# Install build dependencies, build and install
-	cd $@ && makepkg --syncdeps --install -p PKGBUILD-gtk3
+	cd $@ && makepkg --syncdeps --install -p PKGBUILD-unit-scale
 
 archlinux-gtk4:
 	# Download or update package sources
 	if [ -d $@ ]; then cd $@ && git pull; else git clone https://gitlab.archlinux.org/archlinux/packaging/packages/gtk4.git --depth=1 --single-branch $@; fi
-	# Copying patched files
-	cp -l PKGBUILD-gtk4 gtk4_unit_scale.patch $@/
+	# Copy patch
+	cp -l gtk4_unit_scale.patch $@/
+	# Update PKGBUILD
+	awk -f pkgbuild-patch.awk archlinux-gtk4/PKGBUILD gtk4_unit_scale.patch > archlinux-gtk4/PKGBUILD-unit-scale
 	# Install build dependencies, build and install
-	cd $@ && makepkg --syncdeps --install -p PKGBUILD-gtk4
+	cd $@ && makepkg --syncdeps --install -p PKGBUILD-unit-scale
 
 fedora-gtk3:
 	# Download package sources
