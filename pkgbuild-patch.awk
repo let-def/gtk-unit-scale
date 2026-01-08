@@ -22,6 +22,8 @@ BEGIN {
 
     # Flags to track state
     in_prepare = 0
+    in_source = 0
+    in_b2sum = 0
     source_added = 0
     b2sum_added = 0
     git_apply_added = 0
@@ -39,26 +41,57 @@ BEGIN {
   }
 }
 
+/\)[[:space:]]*$/ {
+  if (in_source) {
+    sub(/\)[[:space:]]*$/, "")
+    print
+    print "  \"" patch_name "\""
+    print ")"
+    in_source = 0
+    source_added = 1
+    next
+  }
+  if (in_b2sum) {
+    sub(/\)[[:space:]]*$/, "")
+    print
+    print "  '" b2sum "'"
+    print ")"
+    in_b2sum = 0
+    b2sum_added = 1
+    next
+  }
+}
+
 # Print current line
 { print }
 
 # Append line to source and b2sums arrays 
 /^source=\(/ { 
   if (!source_added) {
-    print "  \"" patch_name "\""; 
-    source_added = 1
+    in_source = 1
   }
 }
 
 /^b2sums=\(.*/ { 
   if (!b2sum_added) {
-    print "        '" b2sum "'"
-    b2sum_added = 1
+    in_b2sum = 1
   }
 }
 
 # Check that the patch applied successfully
 END {
+    if (in_prepare) {
+        print "Failed to match end of prepare section" 
+        exit 1
+    }
+    if (in_source) {
+        print "Failed to match end of source section" 
+        exit 1
+    }
+    if (in_b2sum) {
+        print "Failed to match end of b2sum section" 
+        exit 1
+    }
     if (!source_added) {
         print "Failed to patch source array" 
         exit 1
