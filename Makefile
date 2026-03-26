@@ -50,4 +50,8 @@ fedora-gtk4:
 	# These packages have been built
 	@find ~/rpmbuild/RPMS/ -name 'gtk4-*.unit_scale.*'
 
-.PHONY: archlinux-gtk3 archlinux-gtk4 fedora-gtk3 fedora-gtk4
+fedora-revert:
+	# Revert packages to upstraem versions
+	sudo dnf downgrade  gtk3 gtk4 --allowerasing
+
+.PHONY: archlinux-gtk3 archlinux-gtk4 fedora-gtk3 fedora-gtk4 fedora-revert
