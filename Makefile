@@ -63,7 +63,7 @@ debian-gtk3:
 	# Apply patch and build package
 	test -n "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk+3.0-*' -print -quit)"
 	cp gtk3_unit_scale.patch "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk+3.0-*' -print -quit)/"
-	cd "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk+3.0-*' -print -quit)" && dch --local +unit_scale --distribution UNRELEASED "Apply GTK unit scale patch"
+	cd "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk+3.0-*' -print -quit)" && dch --local +unit-scale --distribution UNRELEASED "Apply GTK unit scale patch"
 	cd "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk+3.0-*' -print -quit)" && patch -p1 < gtk3_unit_scale.patch && dpkg-buildpackage -us -uc -b
 	# These packages have been built
 	@find $@ -maxdepth 1 -type f -name 'libgtk-3-*.deb'
@@ -77,7 +77,7 @@ debian-gtk4:
 	# Apply patch and build package
 	test -n "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk4-*' -print -quit)"
 	cp gtk4_unit_scale.patch "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk4-*' -print -quit)/"
-	cd "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk4-*' -print -quit)" && dch --local +unit_scale --distribution UNRELEASED "Apply GTK unit scale patch"
+	cd "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk4-*' -print -quit)" && dch --local +unit-scale --distribution UNRELEASED "Apply GTK unit scale patch"
 	cd "$$(find $@ -mindepth 1 -maxdepth 1 -type d -name 'gtk4-*' -print -quit)" && patch -p1 < gtk4_unit_scale.patch && dpkg-buildpackage -us -uc -b
 	# These packages have been built
 	@find $@ -maxdepth 1 -type f -name 'libgtk-4-*.deb'
