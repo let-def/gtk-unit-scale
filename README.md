@@ -66,7 +66,14 @@ make fedora-gtk3
 # Manually install the generated packages
 make fedora-gtk4
 # Manually install the generated packages
+
+# For Debian or Ubuntu
+make debian-gtk3 debian-gtk4
+# Manually install the generated packages
 ```
+
+The Debian/Ubuntu targets use the package versions configured by the system's
+APT repositories. Make sure source repositories (`deb-src`) are enabled.
 
 As for the actual changes, see:
 - [Patch - GTK4](https://github.com/let-def/gtk/blob/packaging/gtk4_unit_scale.patch)
