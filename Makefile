@@ -82,4 +82,8 @@ debian-gtk4:
 	# These packages have been built
 	@find $@ -maxdepth 1 -type f -name 'libgtk-4-*.deb'
 
-.PHONY: archlinux-gtk3 archlinux-gtk4 fedora-gtk3 fedora-gtk4 fedora-revert debian-gtk3 debian-gtk4
+debian-revert:
+	# Revert packages to distro versions
+	sudo apt-get install --reinstall --allow-downgrades libgtk-4-1/$$(lsb_release -cs) libgtk-4-common/$$(lsb_release -cs)
+
+.PHONY: archlinux-gtk3 archlinux-gtk4 fedora-gtk3 fedora-gtk4 fedora-revert debian-gtk3 debian-gtk4 debian-revert
